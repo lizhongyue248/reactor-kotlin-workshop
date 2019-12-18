@@ -32,9 +32,13 @@ class Part08OtherOperations {
                 .verifyComplete()
     }
 
-    // TODO Create a Flux of user from Flux of username, firstname and lastname.
-    fun userFluxFromStringFlux(usernameFlux: Flux<String>, firstnameFlux: Flux<String?>, lastnameFlux: Flux<String?>): Flux<User> {
-        return null!!
+    /**
+     * Create a Flux of user from Flux of username, firstname and lastname.
+     */
+    private fun userFluxFromStringFlux(usernameFlux: Flux<String>, firstnameFlux: Flux<String?>,
+                                       lastnameFlux: Flux<String?>): Flux<User> {
+        return Flux.zip(usernameFlux, firstnameFlux, lastnameFlux)
+                .map { User(it.t1, it.t2, it.t3) }
     }
 
     @Test
@@ -49,9 +53,11 @@ class Part08OtherOperations {
                 .verify()
     }
 
-    // TODO return the mono which returns faster its value
-    fun useFastestMono(mono1: Mono<User>, mono2: Mono<User>): Mono<User> {
-        return null!!
+    /**
+     * return the mono which returns faster its value
+     */
+    private fun useFastestMono(mono1: Mono<User>, mono2: Mono<User>): Mono<User> {
+        return Mono.first(mono1, mono2)
     }
 
     @Test
@@ -71,9 +77,11 @@ class Part08OtherOperations {
                 .verifyComplete()
     }
 
-    // TODO return the flux which returns faster the first value
-    fun useFastestFlux(flux1: Flux<User>, flux2: Flux<User>): Flux<User> {
-        return null!!
+    /**
+     * return the flux which returns faster the first value
+     */
+    private fun useFastestFlux(flux1: Flux<User>, flux2: Flux<User>): Flux<User> {
+        return Flux.first(flux1, flux2)
     }
 
     @Test
@@ -85,9 +93,11 @@ class Part08OtherOperations {
                 .verifyComplete()
     }
 
-    // TODO Convert the input Flux<User> to a Mono<Void> that represents the complete signal of the flux
-    fun fluxCompletion(flux: Flux<User>): Mono<Void> {
-        return null!!
+    /**
+     * Convert the input Flux<User> to a Mono<Void> that represents the complete signal of the flux
+     */
+    private fun fluxCompletion(flux: Flux<User>): Mono<Void> {
+        return flux.then()
     }
 
     @Test
@@ -102,9 +112,12 @@ class Part08OtherOperations {
                 .verifyComplete()
     }
 
-    // TODO Return a valid Mono of user for null input and non null input user (hint: Reactive Streams does not accept null values)
-    fun nullAwareUserToMono(user: User?): Mono<User> {
-        return null!!
+    /**
+     * Return a valid Mono of user for null input and non null input user
+     * (hint: Reactive Streams does not accept null values)
+     */
+    private fun nullAwareUserToMono(user: User?): Mono<User> {
+        return Mono.justOrEmpty(user)
     }
 
     @Test
@@ -120,8 +133,11 @@ class Part08OtherOperations {
                 .verifyComplete()
     }
 
-    // TODO Return the same mono passed as input parameter, expect that it will emit User.SKYLER when empty
-    fun emptyToSkyler(mono: Mono<User>): Mono<User> {
-        return null!!
+    /**
+     * Return the same mono passed as input parameter, expect that it
+     * will emit User.SKYLER when empty
+     */
+    private fun emptyToSkyler(mono: Mono<User>): Mono<User> {
+        return mono.defaultIfEmpty(User.SKYLER)
     }
 }

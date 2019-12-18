@@ -20,9 +20,11 @@ class Part10ReactiveToBlocking {
         assertEquals(User.SKYLER, user)
     }
 
-    // TODO Return the user contained in that Mono
-    fun monoToValue(mono: Mono<User>): User? {
-        return null!!
+    /**
+     * Return the user contained in that Mono
+     */
+    private fun monoToValue(mono: Mono<User>): User? {
+        return mono.block()
     }
 
     @Test
@@ -37,9 +39,11 @@ class Part10ReactiveToBlocking {
         assertFalse(it.hasNext())
     }
 
-    // TODO Return the users contained in that Flux
-    fun fluxToValues(flux: Flux<User>): Iterable<User> {
-        return null!!
+    /**
+     * Return the users contained in that Flux
+     */
+    private fun fluxToValues(flux: Flux<User>): Iterable<User> {
+        return flux.toIterable()
     }
 
 }

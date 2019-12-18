@@ -24,9 +24,11 @@ class Part05Merge {
                 .verifyComplete()
     }
 
-    // TODO Merge flux1 and flux2 values with interleave
-    fun mergeFluxWithInterleave(flux1: Flux<User>, flux2: Flux<User>): Flux<User> {
-        return null!!
+    /**
+     * Merge flux1 and flux2 values with interleave
+     */
+    private fun mergeFluxWithInterleave(flux1: Flux<User>, flux2: Flux<User>): Flux<User> {
+        return Flux.merge(flux1, flux2)
     }
 
     @Test
@@ -38,9 +40,11 @@ class Part05Merge {
                 .verifyComplete()
     }
 
-    // TODO Merge flux1 and flux2 values with no interleave (flux1 values and then flux2 values)
-    fun mergeFluxWithNoInterleave(flux1: Flux<User>, flux2: Flux<User>): Flux<User> {
-        return null!!
+    /**
+     * Merge flux1 and flux2 values with no interleave (flux1 values and then flux2 values)
+     */
+    private fun mergeFluxWithNoInterleave(flux1: Flux<User>, flux2: Flux<User>): Flux<User> {
+        return Flux.mergeSequential(flux1, flux2)
     }
 
     @Test
@@ -55,9 +59,11 @@ class Part05Merge {
                 .verifyComplete()
     }
 
-    // TODO Create a Flux containing the value of mono1 then the value of mono2
-    fun createFluxFromMultipleMono(mono1: Mono<User>, mono2: Mono<User>): Flux<User> {
-        return null!!
+    /**
+     * Create a Flux containing the value of mono1 then the value of mono2
+     */
+    private fun createFluxFromMultipleMono(mono1: Mono<User>, mono2: Mono<User>): Flux<User> {
+        return Flux.concat(mono1, mono2)
     }
 
 }
